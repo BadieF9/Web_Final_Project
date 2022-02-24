@@ -5,6 +5,7 @@ namespace CRUD\Controller;
 use CRUD\Helper\DBConnector;
 use CRUD\Helper\PersonHelper;
 use CRUD\Model\Actions;
+use CRUD\Model\Person;
 use PDO;
 
 class PersonController
@@ -19,6 +20,9 @@ class PersonController
             case Actions::READ:
                 $this->readAction($request);
                 $this->readAllAction($request);
+                break;
+            case Actions::UPDATE:
+                $this->updateAction($request);
                 break;
             case Actions::DELETE:
                 $this->deleteAction($request);
@@ -57,6 +61,12 @@ class PersonController
                 echo json_encode($data);
             }
         }
+    }
+
+    public function updateAction($request)
+    {
+        $helper = new PersonHelper();
+        $helper->update($request);
     }
 
     public function deleteAction($request)

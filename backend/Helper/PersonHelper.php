@@ -72,15 +72,36 @@ class PersonHelper
         }
     }
 
+    public function update($req)
+    {
+        try {
+            $statement = $this->db->prepare("UPDATE movies SET name=:name, description=:description, year=:year, img_url=:img_url WHERE id=:id");
+            $data = json_decode(file_get_contents("php://input"));
+            error_log($req, $data);
+            $statement->execute([
+                ':id' => $data->id,
+                ':description' => $data->description,
+                ':year' => $data->year,
+                ':name' => $data->name,
+                ':img_url' => $data->img_url
+            ]);
+            http_response_code(200);
+            echo "movie with id: ". $data->id ." updated successfully.";
+        } catch(PDOException $e) {
+        throw new PDOException($e->getMessage());
+        }
+    }
 
     public function delete($req)
     {
         try {
-            $statement = $this->db->prepare("DELETE FROM person WHERE id=:id");
+            $statement = $this->db->prepare("DELETE FROM movies WHERE id=:id");
             $data = json_decode(file_get_contents("php://input"));
+            error_log($req, $data);
             $statement->execute([
                 ':id' => $data->id
             ]);
+            http_response_code(204);
             echo "user with id: ". $data->id ." deleted successfully.";
           } catch(PDOException $e) {
             throw new PDOException($e->getMessage());

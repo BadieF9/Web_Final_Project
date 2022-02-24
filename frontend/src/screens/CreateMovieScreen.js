@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import{ useNavigate } from 'react-router-dom'
+import{ useLocation, useNavigate } from 'react-router-dom'
 
 const CreateMovieScreen = () => {
-  const [image, setImage] = useState()
-  const [name, setName] = useState()
-  const [desc, setDesc] = useState()
-  const [year, setYear] = useState() 
   let navigate = useNavigate()
+  let location = useLocation()
+  const [image, setImage] = useState(location.state ? location.state.img_url : '')
+  const [name, setName] = useState(location.state ? location.state.name : '')
+  const [desc, setDesc] = useState(location.state ? location.state.description : '')
+  const [year, setYear] = useState(location.state ? location.state.year : '')
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -17,11 +18,21 @@ const CreateMovieScreen = () => {
           data.append(pair[0], pair[1]);
       }
 
-      const request = await fetch("http://localhost:8000/", {
-        method: "POST",
-        body: data
-      })
-      const response = await request
+      let request;
+      let response;
+
+      if(location.state) {
+        request = await fetch("http://localhost:8000/", {
+          method: "PUT",
+          body: data
+        })
+      } else {
+        request = await fetch("http://localhost:8000/", {
+          method: "POST",
+          body: data
+        })
+      }
+      response = await request
       if(response.status === 201)
         navigate('../')
     } catch(error) {

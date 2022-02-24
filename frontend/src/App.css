@@ -16,6 +16,15 @@ a {
   text-decoration: none;
 }
 
+.btn {
+  width: 30%;
+  height: 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: 15px;
+}
+
 .container {
   padding: 0 2vw;
   margin: 7vh 0;
@@ -233,6 +242,14 @@ a {
 }
 
 .movie .movie-desc-container {
+  padding: 0 10%;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   padding: 0 10%;
 }
 
