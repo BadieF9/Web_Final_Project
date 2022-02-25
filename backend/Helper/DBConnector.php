@@ -24,20 +24,20 @@ class DBConnector
     public function connect()
     {
         try {
-            $conn = new PDO("mysql:host=localhost;dbname=movie", "root", "");
+            $conn = new PDO("mysql:host=localhost;dbname=movie", "root", "Badie 153");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
-          } catch(PDOException $e) {
+        } catch (PDOException $e) {
             $this->exceptionHandler($e->getMessage());
             return null;
-          }
+        }
     }
 
     /**
      * @param string $query
      * @return bool
      */
-    public function execQuery(string $query) : bool
+    public function execQuery(string $query): bool
     {
         return true;
     }
@@ -52,7 +52,8 @@ class DBConnector
         echo $message;
     }
 
-    public function getDB() {
+    public function getDB()
+    {
         return $this->db;
     }
 }

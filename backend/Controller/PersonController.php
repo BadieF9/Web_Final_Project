@@ -10,10 +10,9 @@ use PDO;
 
 class PersonController
 {
-    public function switcher($method,$request)
+    public function switcher($method, $request)
     {
-        switch ($method)
-        {
+        switch ($method) {
             case Actions::CREATE:
                 $this->createAction($request);
                 break;
@@ -40,7 +39,7 @@ class PersonController
 
     public function readAction($request)
     {
-        if(str_contains($_SERVER['REQUEST_URI'], '/person')) {
+        if (str_contains($_SERVER['REQUEST_URI'], '/person')) {
             $helper = new PersonHelper();
             $data = $helper->fetch((int) $_GET['id']);
             echo json_encode($data);
@@ -50,8 +49,8 @@ class PersonController
     public function readAllAction($request)
     {
         $helper = new PersonHelper();
-        if(str_contains($_SERVER['REQUEST_URI'], '/movies')) {
-            if(str_contains($_SERVER['REQUEST_URI'], '?search=')) {
+        if (str_contains($_SERVER['REQUEST_URI'], '/movies')) {
+            if (str_contains($_SERVER['REQUEST_URI'], '?search=')) {
                 $helper = new PersonHelper();
                 $data = $helper->search();
                 error_log(json_encode($data));
@@ -71,9 +70,9 @@ class PersonController
 
     public function deleteAction($request)
     {
-        $helper = new PersonHelper();
-        $helper->delete($request);
-        
+        if (str_contains($_SERVER['REQUEST_URI'], '/remove-movie')) {
+            $helper = new PersonHelper();
+            $helper->delete($request);
+        }
     }
-
 }

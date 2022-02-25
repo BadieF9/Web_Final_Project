@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -6,10 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 const MovieScreen = () => {
   const location = useLocation()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    console.log(location)
-  }, [])
   
   const editHandler = (e) => {
     e.preventDefault()
@@ -18,14 +14,12 @@ const MovieScreen = () => {
 
   const deleteHandler = async (e) => {
     e.preventDefault()
-    const request = await fetch("http://localhost:8000/", {
-      method: "DELETE",
-      body: {
-        id : location.state.id
-      }
+    const request = await fetch("http://localhost:8000/remove-movie/?id=" + location.state.id, {
+      method: 'DELETE'
     })
     const response = await request
-
+    if(response.status === 204)
+      navigate('../')
   }
 
   return (

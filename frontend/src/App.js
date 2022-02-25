@@ -4,10 +4,11 @@ import HomeScreen from './screens/HomeScreen';
 import CreateMovieScreen from './screens/CreateMovieScreen';
 import MovieScreen from './screens/MovieScreen';
 import SearchScreen from './screens/SearchScreen';
+import GridListContextProvider from './context/GridListContext';
 
 function App() {
   return (
-    <>
+    <GridListContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeScreen/>}/>
@@ -16,7 +17,7 @@ function App() {
           <Route path="/movie" element={<MovieScreen/>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </GridListContextProvider>
   );
 }
 

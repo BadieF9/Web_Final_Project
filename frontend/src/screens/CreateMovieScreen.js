@@ -22,10 +22,14 @@ const CreateMovieScreen = () => {
       let response;
 
       if(location.state) {
+        console.log(data)
         request = await fetch("http://localhost:8000/", {
-          method: "PUT",
-          body: data
-        })
+          method: 'PUT',
+          body: JSON.stringify({image, name, desc, year}),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+         })
       } else {
         request = await fetch("http://localhost:8000/", {
           method: "POST",
